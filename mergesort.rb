@@ -9,18 +9,18 @@ def mergesort(arr, &prc)
   left = mergesort(arr[0..middle_idx], &prc)
   right = mergesort(arr[(middle_idx+1)..-1], &prc)
 
-
-  merge(left, right)
-
+  merge(left, right, &prc)
 
 end
 
 def merge(left, right, &prc)
   merged = []
   until left.empty? || right.empty?
-    if left.first < right.first
+    result = prc.call( left.first, right.first )
+
+    if result == -1 || result == true
       merged << left.shift
-    elsif right.first < left.first
+    else
       merged << right.shift
     end
   end
@@ -37,3 +37,8 @@ arr = (0..10000).to_a.shuffle
 
 
 puts mergesort(arr) == arr.sort
+
+
+arr = (0..10000).to_a.shuffle
+
+puts mergesort(arr){|x,y| y <=> x} == arr.sort.reverse
