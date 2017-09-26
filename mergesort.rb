@@ -1,11 +1,13 @@
 
 
-def mergesort(arr)
+def mergesort(arr, &prc)
+  prc ||= Proc.new{|x,y| x< y}
+
   return arr if arr.length <=1
 
   middle_idx = (arr.length/ 2)-1
-  left = mergesort(arr[0..middle_idx])
-  right = mergesort(arr[(middle_idx+1)..-1])
+  left = mergesort(arr[0..middle_idx], &prc)
+  right = mergesort(arr[(middle_idx+1)..-1], &prc)
 
 
   merge(left, right)
@@ -13,7 +15,7 @@ def mergesort(arr)
 
 end
 
-def merge(left, right)
+def merge(left, right, &prc)
   merged = []
   until left.empty? || right.empty?
     if left.first < right.first
