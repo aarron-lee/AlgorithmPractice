@@ -3,6 +3,7 @@ class StackQueue {
   constructor(){
     this.enqueStack = [];
     this.dequeStack = [];
+
   }
 
   empty(){
@@ -28,7 +29,7 @@ class StackQueue {
 
   first(){
     if( this.dequeStack.length > 0){
-      return this.dequeStack[this.enqueStack.length-1];
+      return this.dequeStack[this.dequeStack.length-1];
     }else if (this.enqueStack.length > 0){
       return this.enqueStack[0];
     }else{
@@ -51,5 +52,4 @@ class StackQueue {
       this.dequeStack.push( this.enqueStack.pop() );
     }
   }
-
 }
