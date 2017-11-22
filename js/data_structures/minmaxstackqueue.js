@@ -5,6 +5,13 @@ class StackQueue {
     this.dequeStack = [];
   }
 
+  empty(){
+    if( this.enqueStack.length === 0 && this.dequeStack.length === 0){
+      return true;
+    }
+    return false;
+  }
+
   enqueue(val){
     this.enqueStack.push(val);
   }
@@ -20,23 +27,23 @@ class StackQueue {
   }
 
   first(){
-    if(this.dequeStack.length === 0){
-      this._moveElsToDequeStack();
+    if( this.dequeStack.length > 0){
+      return this.dequeStack[this.enqueStack.length-1];
+    }else if (this.enqueStack.length > 0){
+      return this.enqueStack[0];
+    }else{
+      return null;
     }
-    if(this.dequeStack.length > 0){
-      return this.dequeStack[this.dequeStack.length-1];
-    }
-    return null;
   }
 
   last(){
-    if(this.dequeStack.length === 0){
-      this._moveElsToDequeStack();
-    }
-    if(this.dequeStack.length > 0){
+    if( this.enqueStack.length > 0){
+      return this.enqueStack[this.enqueStack.length-1];
+    }else if (this.dequeStack.length > 0){
       return this.dequeStack[0];
+    }else{
+      return null;
     }
-    return null;
   }
 
   _moveElsToDequeStack(){
