@@ -1,3 +1,3 @@
 # Practice implementations
 
-practice implementations of algorithms, etc, w/ Ruby
+practice implementations of algorithms, basic functionality etc, w/ Ruby or JS
