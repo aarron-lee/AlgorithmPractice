@@ -36,6 +36,10 @@ class MaxStack{
     return this.stack.length;
   }
 
+  length(){
+    return this.stack.length;
+  }
+
 }
 
 // always keeps track of min and max values in stack
