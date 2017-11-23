@@ -40,18 +40,25 @@ class MaxStack{
     return this.stack.length;
   }
 
-  first(){
+  bottom(){
     if(this.stack.length > 0){
       return this.stack[0];
     }
     return null;
   }
 
-  last(){
+  top(){
     if(this.stack.length > 0){
       return this.stack[this.stack.length-1];
     }
     return null;
+  }
+
+  empty(){
+    if(this.size() === 0){
+      return true;
+    }
+    return false;
   }
 
 }
@@ -95,6 +102,8 @@ class MinMaxStack extends MaxStack{
 
 
 // uses 2 MinMaxStacks to implement a queue
+// has O(1) enqueue, amortized O(1) dequeue
+// O(1) for max val, O(1) for min val
 class MinMaxQueue {
   constructor(){
     this.enqueStack = new MinMaxStack();
@@ -123,11 +132,72 @@ class MinMaxQueue {
   }
 
   first(){
-
+    if( !this.dequeStack.empty() ){
+      return this.dequeStack.top();
+    }else if( !this.enqueStack.empty() ){
+      return this.enqueStack.bottom();
+    }else{
+      return null;
+    }
   }
 
   last(){
+    if( !this.enqueStack.empty() ){
+      return this.enqueStack.top();
+    }else if( !this.dequeStack.empty() ){
+      return this.dequeStack.bottom();
+    }else{
+      return null;
+    }
+  }
 
+  min(){
+    let min1 = this.enqueStack.min();
+    let min2 = this.dequeStack.min();
+
+    if(min1 == null && min2 == null){
+      return null;
+    }
+    if( min1 == null){
+      return min2;
+    }
+    if( min2 == null){
+      return min1;
+    }
+    if( min1 > min2){
+      return min2;
+    }
+    if( min2 > min1){
+      return min1;
+    }
+  }
+  max(){
+    let max1 = this.enqueStack.max();
+    let max2 = this.dequeStack.max();
+
+    if(max1 == null && max2 == null){
+      return null;
+    }
+    if( max1 == null){
+      return max2;
+    }
+    if( max2 == null){
+      return max1;
+    }
+    if( max1 > max2){
+      return max1;
+    }
+    if( max2 > max1){
+      return max2;
+    }
+  }
+
+  length(){
+    return this.enqueStack.size() + this.dequeStack.size();
+  }
+
+  size(){
+    return this.length();
   }
 
   _moveElsToDequeStack(){
