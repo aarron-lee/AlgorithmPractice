@@ -1,9 +1,45 @@
+// always keeps track of max value in stack
+class MaxStack{
+  constructor(){
+    this.maxHistory = [];
+    this.stack = [];
+  }
+
+  push(val){
+    if(this.maxHistory.length === 0){
+      this.maxHistory.push(val);
+    }else if( this.maxHistory[this.maxHistory.length-1] <= val ){
+      this.maxHistory.push(val);
+    }
+    this.stack.push(val);
+    return true;
+  }
+
+  pop(){
+    let poppedVal = this.stack.pop();
+    if( this.max() === poppedVal ){
+      this.maxHistory.pop();
+    }
+    return poppedVal;
+  }
+
+  max(){
+    if(this.maxHistory.length > 0){
+      return this.maxHistory[this.maxHistory.length-1];
+    }
+    return null;
+  }
+
+}
+
+
+
+
 // uses 2 stacks to implement a queue
 class StackQueue {
   constructor(){
     this.enqueStack = [];
     this.dequeStack = [];
-
   }
 
   empty(){
