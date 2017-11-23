@@ -40,6 +40,20 @@ class MaxStack{
     return this.stack.length;
   }
 
+  first(){
+    if(this.stack.length > 0){
+      return this.stack[0];
+    }
+    return null;
+  }
+
+  last(){
+    if(this.stack.length > 0){
+      return this.stack[this.stack.length-1];
+    }
+    return null;
+  }
+
 }
 
 // always keeps track of min and max values in stack
@@ -80,15 +94,15 @@ class MinMaxStack extends MaxStack{
 }
 
 
-// uses 2 stacks to implement a queue
-class StackQueue {
+// uses 2 MinMaxStacks to implement a queue
+class MinMaxQueue {
   constructor(){
-    this.enqueStack = [];
-    this.dequeStack = [];
+    this.enqueStack = new MinMaxStack();
+    this.dequeStack = new MinMaxStack();
   }
 
   empty(){
-    if( this.enqueStack.length === 0 && this.dequeStack.length === 0){
+    if( this.enqueStack.size() === 0 && this.dequeStack.size() === 0){
       return true;
     }
     return false;
@@ -99,37 +113,25 @@ class StackQueue {
   }
 
   dequeue(){
-    if(this.dequeStack.length === 0){
+    if(this.dequeStack.size() === 0){
       this._moveElsToDequeStack();
     }
-    if(this.dequeStack.length > 0){
+    if(this.dequeStack.size() > 0){
       return this.dequeStack.pop();
     }
     return null;
   }
 
   first(){
-    if( this.dequeStack.length > 0){
-      return this.dequeStack[this.dequeStack.length-1];
-    }else if (this.enqueStack.length > 0){
-      return this.enqueStack[0];
-    }else{
-      return null;
-    }
+
   }
 
   last(){
-    if( this.enqueStack.length > 0){
-      return this.enqueStack[this.enqueStack.length-1];
-    }else if (this.dequeStack.length > 0){
-      return this.dequeStack[0];
-    }else{
-      return null;
-    }
+
   }
 
   _moveElsToDequeStack(){
-    while(this.enqueStack.length > 0){
+    while(this.enqueStack.size() > 0){
       this.dequeStack.push( this.enqueStack.pop() );
     }
   }
