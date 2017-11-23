@@ -1,4 +1,6 @@
 // always keeps track of max value in stack
+// the max will be the top value of the max stack
+// O(1) time for max
 class MaxStack{
   constructor(){
     this.maxHistory = [];
@@ -30,9 +32,48 @@ class MaxStack{
     return null;
   }
 
+  size(){
+    return this.stack.length;
+  }
+
 }
 
+// always keeps track of min and max values in stack
+// max values tracked by MaxStack
+// the min will be the top value of the min stack
+// O(1) time for min
+class MinMaxStack extends MaxStack{
 
+  constructor(){
+    super();
+    this.minHistory = [];
+  }
+
+  push(val){
+    if(this.minHistory.length === 0){
+      this.minHistory.push(val);
+    }else if( this.minHistory[this.minHistory.length-1] >= val ){
+      this.minHistory.push(val);
+    }
+    return super.push(val);
+  }
+
+  pop(){
+    let poppedVal = super.pop();
+    if( this.min() === poppedVal ){
+      this.minHistory.pop();
+    }
+    return poppedVal;
+  }
+
+  min(){
+    if(this.minHistory.length > 0){
+      return this.minHistory[this.minHistory.length-1];
+    }
+    return null;
+  }
+
+}
 
 
 // uses 2 stacks to implement a queue
