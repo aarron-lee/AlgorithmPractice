@@ -160,20 +160,3 @@ class MaxHeap extends Heap{
     return this._root();
   }
 }
-
-let h = new Heap();
-let m = new MinHeap();
-let a = new MaxHeap();
-
-let vals = [1,3,12,7,9,15,18,13];
-
-vals.forEach((el) => m.add(el));
-
-// TESTS for MaxHeap delete
-vals = [26,23,18,22,12,16,17,20];
-
-vals.forEach((el) => a.add(el));
-
-a.delete(16); // result: 26, 23, 20, 22, 12, 18, 17
-
-a.delete(23); // result: 26, 22, 20, 17, 12, 18
